@@ -1,10 +1,10 @@
-name: AX3600 NSS Build
+name: AX3600 NSS Build firmware
 
 on: workflow_dispatch
 
 jobs:
     build:
-        name: AX3600 NSS Build
+        name: AX3600 NSS Build firmware
         runs-on: ubuntu-latest
         permissions:
             contents: write
