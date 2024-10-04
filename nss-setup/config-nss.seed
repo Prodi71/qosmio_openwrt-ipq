@@ -74,6 +74,12 @@ CONFIG_KERNEL_ARM_PMUV3=y
 CONFIG_KERNEL_PREEMPT_NONE=y
 CONFIG_KERNEL_PREEMPT_NONE_BUILD=y
 
+# Disable Ath10k 
+CONFIG_PACKAGE_ath10k-board-qca9887=n
+CONFIG_PACKAGE_ath10k-firmware-qca9887-ct=n
+CONFIG_PACKAGE_kmod-ath10k-ct-smallbuffers=n
+CONFIG_ATH10K-CT_LEDS=n
+
 # SSL Configuration
 CONFIG_PACKAGE_libustream-openssl=y
 CONFIG_PACKAGE_libustream-mbedtls=n
@@ -91,13 +97,11 @@ CONFIG_PACKAGE_wpad-basic-mbedtls=n
 # LUCI Applications
 CONFIG_PACKAGE_luci-app-firewall=y
 CONFIG_PACKAGE_luci-app-opkg=y
-CONFIG_PACKAGE_luci-app-sqm=y
 CONFIG_PACKAGE_luci-app-statistics=y
 CONFIG_PACKAGE_luci-app-acme=y
 CONFIG_PACKAGE_luci-app-firewall=y
 CONFIG_PACKAGE_luci-app-nlbwmon=y
 CONFIG_PACKAGE_luci-app-opkg=y
-CONFIG_PACKAGE_luci-app-sqm=y
 CONFIG_PACKAGE_luci-app-statistics=y
 CONFIG_PACKAGE_luci-app-watchcat=y
 CONFIG_PACKAGE_luci-proto-wireguard=y
@@ -112,11 +116,13 @@ CONFIG_ATH11K_DEBUGFS_STA=n
 CONFIG_ATH11K_THERMAL=n
 
 # Additional kernel modules
-CONFIG_PACKAGE_kmod-fs-vfat=y
-CONFIG_PACKAGE_kmod-fs-f2fs=y
-CONFIG_PACKAGE_kmod-fs-ntfs3=y
-CONFIG_PACKAGE_kmod-nft-bridge=y
-CONFIG_PACKAGE_kmod-usb-storage=y
+CONFIG_PACKAGE_kmod-tcp-bbr=y
+CONFIG_PACKAGE_kmod-nft-tproxy=y
+CONFIG_PACKAGE_kmod-nf-conntrack=y
+CONFIG_PACKAGE_kmod-nft-queue=y
+CONFIG_PACKAGE_kmod-nf-conntrack=y
+CONFIG_PACKAGE_kmod-nfnetlink-queue=y
+CONFIG_PACKAGE_kmod-tun=y
 CONFIG_PACKAGE_kmod-ramoops=y
 
 # Additional packages
@@ -128,7 +134,10 @@ CONFIG_PACKAGE_jq=y
 CONFIG_PACKAGE_pigz=y
 CONFIG_PACKAGE_tar=y
 CONFIG_PACKAGE_tcpdump=y
-
+CONFIG_PACKAGE_wget-ssl=y
+CONFIG_PACKAGE_ca-certificates=y
+CONFIG_PACKAGE_dnsmasq=n
+CONFIG_PACKAGE_dnsmasq-full=y
 CONFIG_HTOP_LMSENSORS=n
 
 # Prevent opkg from adding custom feeds to /etc/opkg/distfeeds.conf
