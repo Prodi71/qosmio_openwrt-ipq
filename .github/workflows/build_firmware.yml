@@ -36,10 +36,10 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
            
-            - name: Update scripts
+            - name: Update feeds
               run:  ./scripts/feeds update
 
-            - name: Install scripts
+            - name: Install feeds
               run:  ./scripts/feeds install -a
 
             - name: Generate config
