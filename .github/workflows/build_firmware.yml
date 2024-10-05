@@ -45,8 +45,11 @@ jobs:
             - name: Generate config
               run:  cp nss-setup/config-nss.seed .config
 
-            - name: Modify config
-              run: sed -i 's/# CONFIG_TARGET_qualcommax_ipq807x_DEVICE_xiaomi_ax3600 is not set/CONFIG_TARGET_qualcommax_ipq807x_DEVICE_xiaomi_ax3600=y/g' .config
+            - name: Generate AX3600 NSS Config
+              run: cp nss-setup/config-nss.seed .config 
+               && sed -i 's/# CONFIG_TARGET_qualcommax_ipq807x_DEVICE_xiaomi_ax3600 is not set/CONFIG_TARGET_qualcommax_ipq807x_DEVICE_xiaomi_ax3600=y/g' .config
+               && echo "CONFIG_KMOD_ALL=y" >> .config 
+               && echo "CONFIG_FEED_custom_packages=n" >> .config
                            
             - name: Print initial config we are using
               run: cat .config
@@ -57,21 +60,16 @@ jobs:
             - name: Pre-download
               run: make download -j$(nproc) V=s
 
+  build firmware:
             - name: Build firmware images
               run: make -j$(($(nproc)+1)) V=s
 
-            - name: Pack packages
-              run:  tar cvfz bin/ipq807x.tar.gz -C bin/targets/qualcommax/ipq807x .
+            - name: Get SHORT SHA 
+              run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
 
-            - name: Get SHA
-              uses: benjlevesque/short-sha@v2.2
-
-            - name: copy file to server
-              uses: appleboy/scp-action@v0.1.7
+  release:
+            - name: Release
+              uses: ncipollo/release-action@v1
               with:
-                host: ${{ secrets.HOST }}
-                username: ${{ secrets.USERNAME }}
-                password: ${{ secrets.PASSWORD }}
-                port: ${{ secrets.PORT }}
-                source: bin/ipq807x.tar.gz
-                target: uploads/${{ env.SHA }}
+                tag: AX3600-nss-${{ env.SHORT_SHA }}
+                artifacts: bin/targets/qualcommax/ipq807x/*
