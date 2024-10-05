@@ -80,13 +80,12 @@ jobs:
               uses: "ncipollo/release-action@v1"
               with:
                 name: "Updated prebuilt images (NSS) ${{ env.NOW }}"
-                commit: "qosmio_openwrt-ipq"
+                commit: "qualcommax-6.x-nss-wifi"
                 tag: "ipq807x-nss-${{ env.NOW }}"
                 generateReleaseNotes: true
                 makeLatest: true
                 artifacts: bin/targets/qualcommax/ipq807x/*
                 token: "${{ secrets.GITHUB_TOKEN }}"
-
 
 
 
