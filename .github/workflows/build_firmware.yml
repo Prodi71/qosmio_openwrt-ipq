@@ -59,15 +59,36 @@ jobs:
 
             - name: Pre-download
               run: make download -j$(nproc) V=s
+              
+            - name: Build tools
+              run: |
+                make tools/install -j$(nproc) V=s || \
+                make tools/install V=s
+
+            - name: Build toolchain
+              run: |
+                make toolchain/install -j$(nproc) V=s || \
+                make toolchain/install V=s  
 
             - name: Build firmware images
               run: make -j$(($(nproc)+1)) V=s
 
-            - name: Get SHORT SHA 
-              run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+            - name: Get the current date
+              run: echo "NOW=$(date +%F-%H%M)" >> $GITHUB_ENV
 
-            - name: Release
-              uses: ncipollo/release-action@v1
+            - name: Create a release
+              uses: "ncipollo/release-action@v1"
               with:
-                tag: AX3600-nss-${{ env.SHORT_SHA }}
-                artifacts: bin/targets/qualcommax/ipq807x/openwrt-qualcommax-ipq807x*.bin,bin/targets/qualcommax/ipq807x/openwrt-qualcommax-ipq807x-xiaomi_ax3600.manifest,.config
+                name: "Updated prebuilt images (NSS-WiFi) ${{ env.NOW }}"
+                commit: "main_nss"
+                tag: "ipq807x-nsswifi-${{ env.NOW }}"
+                generateReleaseNotes: true
+                makeLatest: true
+                artifacts: bin/targets/qualcommax/ipq807x/*
+                token: "${{ secrets.GITHUB_TOKEN }}"
+
+
+
+
+
+
