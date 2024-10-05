@@ -70,4 +70,4 @@ jobs:
               uses: ncipollo/release-action@v1
               with:
                 tag: AX3600-nss-${{ env.SHORT_SHA }}
-                artifacts: bin/targets/qualcommax/ipq807x/*
+                artifacts: bin/targets/qualcommax/ipq807x/openwrt-qualcommax-ipq807x*,bin/targets/qualcommax/ipq807x/openwrt-qualcommax-ipq807x-xiaomi_ax3600.manifest,.config
