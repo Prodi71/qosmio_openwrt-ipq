@@ -60,14 +60,14 @@ jobs:
             - name: Pre-download
               run: make download -j$(nproc) V=s
 
-  build firmware:
+    firmware:
             - name: Build firmware images
               run: make -j$(($(nproc)+1)) V=s
 
             - name: Get SHORT SHA 
               run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
 
-  release:
+    release:
             - name: Release
               uses: ncipollo/release-action@v1
               with:
