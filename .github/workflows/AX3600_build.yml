@@ -1,4 +1,4 @@
-name: AX3600 NSS Build
+name: Xiaomi AX3600 NSS Build
 
 on: workflow_dispatch
 
